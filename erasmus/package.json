@@ -1,7 +1,6 @@
 {
   "name": "erasmus",
   "version": "0.1.0",
-  "homepage": "foss.uazuay.edu.ec",
   "proxy": "http://172.16.1.95:5000",
   "private": true,
   "dependencies": {

@@ -98,15 +98,6 @@ export const AcercaDe = () => {
             <span>pedro.figueroa@es.uazuay.edu.ec</span>
           </div>
         </TeamMember>
-        <TeamMember>
-          <div className="contenedorImagen">
-            <Image src={logo3} alt="Miembro 3" />
-            <span>Sthefany Peñafiel</span>
-          </div>
-          <div className="contenedorInfo">
-            <span>sthefanyyt@es.uazuay.edu.ec</span>
-          </div>
-        </TeamMember>
       </TeamList>
     </AboutContainer>
   );
