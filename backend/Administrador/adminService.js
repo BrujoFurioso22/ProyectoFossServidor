@@ -51,7 +51,7 @@ export const SubirImagen = (req, res, next) => {
 
     if (data.length <= 0) {
       const q = `INSERT INTO baseerasmus.imagenes (nombreimagen,rutaimagen,grupoimagen) VALUES('${nombreimagen}','${
-        "/imagenesJuego/" + file.originalname
+        "http://172.16.1.95:5000/imagenesJuego/" + file.originalname
       }','${numJuego}');`;
       db.query(q, (err, data) => {
         if (err) {
