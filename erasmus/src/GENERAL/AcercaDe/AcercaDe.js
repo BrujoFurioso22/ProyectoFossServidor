@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import logo1 from "SOURCES/diego.svg";
 import logo2 from "SOURCES/pedro.svg";
-import logo3 from "SOURCES/tef.svg";
 
 // Estilos para el componente
 const AboutContainer = styled.div`

@@ -288,6 +288,7 @@ export const CanvasApp = () => {
     const fondo = new Image();
 
     // Reemplaza la URL con la ruta local donde has descargado la imagen
+    fondo.setAttribute('crossorigin', 'anonymous')
     fondo.src = imgTarea.rutaimagen;
 
     fondo.onload = () => {
