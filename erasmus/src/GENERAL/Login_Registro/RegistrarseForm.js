@@ -14,7 +14,7 @@ export function Registrarse() {
     cedula: "",
     email: "",
     password: "",
-    confpassword:""
+    confpassword: "",
   });
   const [mensajeError, setMensajeError] = useState("");
   const [validacion, setValidacion] = useState(0);
@@ -164,15 +164,18 @@ export function Registrarse() {
           <option value="M">Masculino</option>
           <option value="F">Femenino</option>
         </select>
-        <input
-          type="email"
-          name="email"
-          value={usuario.email}
-          onChange={handleChange}
-          placeholder="Correo"
-          className="inputLogin"
-          required={true}
-        />
+        {usuario.tipo === "PR" && (
+          <input
+            type="email"
+            name="email"
+            value={usuario.email}
+            onChange={handleChange}
+            placeholder="Correo"
+            className="inputLogin"
+            required={true}
+          />
+        )}
+
         <div
           style={{
             width: "100%",
@@ -191,7 +194,7 @@ export function Registrarse() {
             required={true}
           />
           <span
-            style={{ userSelect: "none", cursor: "pointer", fontSize:"20px" }}
+            style={{ userSelect: "none", cursor: "pointer", fontSize: "20px" }}
             onClick={toggleMostrarPassword}
           >
             {mostrarPassword ? (
@@ -219,7 +222,7 @@ export function Registrarse() {
             required={true}
           />
           <span
-            style={{ userSelect: "none", cursor: "pointer", fontSize:"20px" }}
+            style={{ userSelect: "none", cursor: "pointer", fontSize: "20px" }}
             onClick={toggleMostrarConfPassword}
           >
             {mostrarConfPassword ? (

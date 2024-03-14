@@ -37,7 +37,7 @@ const ContenedorTabs = styled.div`
 
 const nombresPersonalizados = {
   nombre: "Nombre Estudiante",
-  correo: "Correo",
+  cedula: "Cédula",
   institucion: "Institución",
   sexo: "Sexo",
 };
@@ -88,7 +88,7 @@ export const ConfigEstudiantes = () => {
         }, 5000);
         setCorreoEst("")
       } else {
-        setMensaje("*Correo Invalido");
+        setMensaje("*Cédula Inválida");
       }
     }
   };
@@ -110,7 +110,7 @@ export const ConfigEstudiantes = () => {
         >
           <InputStyled
             type="text"
-            placeholder="Correo estudiante"
+            placeholder="Cédula estudiante"
             value={correoEst}
             onChange={(e) => setCorreoEst(e.target.value)}
           />

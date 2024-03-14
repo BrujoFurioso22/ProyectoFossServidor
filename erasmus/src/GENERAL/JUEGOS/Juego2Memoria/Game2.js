@@ -240,39 +240,6 @@ export function Game2() {
       }, delay);
     });
   };
-  const DecirTextoFinal = (text, delay) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const synth = window.speechSynthesis;
-        const utterThis = new SpeechSynthesisUtterance(text);
-
-        // Personalizar la voz
-        const voices = synth.getVoices();
-        utterThis.voice = voices.find((voice) => voice.lang === "es-ES");
-
-        // Establecer el idioma
-        utterThis.lang = "es-ES";
-        utterThis.rate = 0.9;
-
-        // Hablar el texto
-        synth.speak(utterThis);
-
-        // Manejar el evento onend
-        utterThis.onend = () => {
-          console.log("La síntesis de voz ha terminado");
-          // Resolver la promesa cuando termine la síntesis de voz
-          resolve();
-        };
-
-        // Manejar cualquier error
-        utterThis.onerror = (error) => {
-          console.error("Error en la síntesis de voz", error);
-          // Rechazar la promesa en caso de error
-          reject(error);
-        };
-      }, delay);
-    });
-  };
 
   const buscarRutaImagenPorId = (idimg, jsonArr) => {
     // Buscar el objeto en el arreglo que coincida con el idimg proporcionado
@@ -458,18 +425,6 @@ export function Game2() {
 
     return <ContenedorStars>{stars}</ContenedorStars>;
   };
-  useEffect(() => {
-    const OrdenFinal = () => {
-      if (win !== "") {
-        if (win) {
-          DecirTextoFinal("Felicidades, has ganado.", 1000);
-        } else {
-          DecirTextoFinal("Intenta de nuevo.", 1000);
-        }
-      }
-    };
-    OrdenFinal();
-  }, [win]);
 
   useEffect(() => {
     if (estrellas !== -1) {
@@ -557,10 +512,8 @@ export function Game2() {
                 Numero de cartas
                 <br /> a memorizar: {numCartas}
               </span>
-              {console.log(mostrarJugar)}
               <BotonJugar
-                mostrarBotonConDis={true}
-                opacityV={mostrarJugar}
+                style={{ opacity: mostrarJugar ? "1" : "0" }}
                 disabled={!mostrarJugar}
                 handleClick={IniciarJuego}
                 texto={haJugado === 0 ? "JUGAR" : "JUGAR DE NUEVO"}

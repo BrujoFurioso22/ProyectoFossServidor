@@ -2,7 +2,7 @@ import { db } from "../db.js";
 
 export const consultarEstudiantes = (req, res) => {
   const profesorID = req.params.idprofesor;
-  const q = `SELECT idestudiantes, estudiantes.nombre,estudiantes.correo, estudiantes.institucion, estudiantes.sexo FROM baseerasmus.profesores, baseerasmus.estudiantes, baseerasmus.asignados where profesores.idprofesores = asignados.iddeprofesor and estudiantes.idestudiantes = asignados.iddeestudiante and profesores.idprofesores = ${profesorID};`;
+  const q = `SELECT idestudiantes, estudiantes.nombre,estudiantes.cedula, estudiantes.institucion, estudiantes.sexo FROM baseerasmus.profesores, baseerasmus.estudiantes, baseerasmus.asignados where profesores.idprofesores = asignados.iddeprofesor and estudiantes.idestudiantes = asignados.iddeestudiante and profesores.idprofesores = ${profesorID};`;
   db.query(q, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -29,10 +29,19 @@ export const eliminarEstudiantedeProfesor = (req, res) => {
 
 export const idUsuario = (req, res) => {
   const correo = req.params.correo;
-  const q = `SELECT idestudiantes FROM estudiantes WHERE correo = '${correo}'`;
+  let q = `SELECT idestudiantes FROM estudiantes WHERE correo = '${correo}'`;
   db.query(q, (err, data) => {
     if (err) return res.json(err);
-    return res.json(data);
+    if (data.length > 0) {
+      return res.json(data);
+    } else {
+      // Si no encuentra por correo, busca por cédula.
+      q = `SELECT idestudiantes FROM estudiantes WHERE cedula = '${correo}'`;
+      db.query(q, (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+      });
+    }
   });
 };
 

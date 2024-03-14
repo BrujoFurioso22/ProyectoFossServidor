@@ -20,22 +20,50 @@ export const getUserById = (req, res) => {
 export const validateUser = (req, res) => {
   const correo = req.params.correo;
   const contrasena = req.params.password;
-  const q = `SELECT * FROM estudiantes WHERE correo = '${correo}' and contrasena = '${contrasena}'`;
+  // Primera consulta: busca por correo y contraseña.
+  let q = `SELECT * FROM estudiantes WHERE correo = '${correo}' AND contrasena = '${contrasena}'`;
   db.query(q, (err, data) => {
     if (err) return res.json(err);
     if (data.length > 0) {
       return res.json(data);
     } else {
-      const q = `SELECT * FROM profesores WHERE correo = '${correo}' and contrasena = '${contrasena}'`;
+      // Si no encuentra por correo y contraseña, busca por cédula.
+      q = `SELECT * FROM estudiantes WHERE cedula = '${correo}' AND contrasena = '${contrasena}'`;
       db.query(q, (err, data) => {
         if (err) return res.json(err);
         if (data.length > 0) {
           return res.json(data);
         } else {
-          const q = `SELECT * FROM administrador WHERE correo = '${correo}' and contrasena = '${contrasena}'`;
+          // Repite el proceso para profesores.
+          q = `SELECT * FROM profesores WHERE correo = '${correo}' AND contrasena = '${contrasena}'`;
           db.query(q, (err, data) => {
             if (err) return res.json(err);
-            return res.json(data);
+            if (data.length > 0) {
+              return res.json(data);
+            } else {
+              q = `SELECT * FROM profesores WHERE cedula = '${correo}' AND contrasena = '${contrasena}'`;
+              db.query(q, (err, data) => {
+                if (err) return res.json(err);
+                if (data.length > 0) {
+                  return res.json(data);
+                } else {
+                  // Repite el proceso para administradores.
+                  q = `SELECT * FROM administrador WHERE correo = '${correo}' AND contrasena = '${contrasena}'`;
+                  db.query(q, (err, data) => {
+                    if (err) return res.json(err);
+                    if (data.length > 0) {
+                      return res.json(data);
+                    } else {
+                      q = `SELECT * FROM administrador WHERE cedula = '${correo}' AND contrasena = '${contrasena}'`;
+                      db.query(q, (err, data) => {
+                        if (err) return res.json(err);
+                        return res.json(data);
+                      });
+                    }
+                  });
+                }
+              });
+            }
           });
         }
       });

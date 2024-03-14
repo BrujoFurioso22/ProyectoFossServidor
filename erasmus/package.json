@@ -1,7 +1,7 @@
 {
   "name": "erasmus",
   "version": "0.1.0",
-  "proxy": "http://172.16.1.95:5000",
+  "proxy": "https://foss.uazuay.edu.ec:8443",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
